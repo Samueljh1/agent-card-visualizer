@@ -128,15 +128,8 @@ export default function AgentCardVisualizer() {
               </div>
             </CardHeader>
             <CardContent>
-              <Textarea
-                placeholder="Paste your Agent Card JSON here..."
-                value={jsonInput}
-                onChange={(e) => handleJsonChange(e.target.value)}
-                className="min-h-[600px] font-mono text-sm"
-              />
-              
               {/* Validation Status */}
-              <div className="mt-4 flex items-center gap-2">
+              <div className="mb-4 flex items-center gap-2">
                 {validationSummary?.isValid && parsedCard ? (
                   <>
                     <CheckCircle className="h-5 w-5 text-green-600" />
@@ -147,13 +140,17 @@ export default function AgentCardVisualizer() {
                       </Badge>
                     )}
                   </>
-                ) : validationSummary && !validationSummary.isValid ? (
+                ) : !validationSummary || !validationSummary.isValid ? (
                   <>
                     <AlertCircle className="h-5 w-5 text-red-600" />
                     <span className="text-red-600 font-medium">
-                      {validationSummary.errors} error{validationSummary.errors > 1 ? 's' : ''}
+                      {!validationSummary ? (
+                        <>Error</>
+                      ) : (
+                        <>{validationSummary.errors} error{validationSummary.errors > 1 ? 's' : ''}</>
+                      )}
                     </span>
-                    {validationSummary.warnings > 0 && (
+                    {validationSummary && validationSummary.warnings > 0 && (
                       <Badge variant="outline" className="text-yellow-700 border-yellow-300">
                         {validationSummary.warnings} warning{validationSummary.warnings > 1 ? 's' : ''}
                       </Badge>
@@ -164,8 +161,21 @@ export default function AgentCardVisualizer() {
 
               {/* Validation Errors */}
               {validationErrors.length > 0 && (
-                <div className="mt-3"><ErrorList errors={validationErrors} /></div>
+                <div className="mb-6"><ErrorList errors={validationErrors} /></div>
               )}
+
+              <Textarea
+                placeholder="Paste your Agent Card JSON here..."
+                value={jsonInput}
+                onChange={(e) => handleJsonChange(e.target.value)}
+                className={`min-h-[600px] font-mono text-sm ${
+                  !validationSummary || !validationSummary.isValid 
+                    ? 'border-red-500 border-3 focus-visible:ring-red-500' 
+                    : validationSummary && validationSummary.warnings > 0 
+                    ? 'border-yellow-500 border-3 focus-visible:ring-yellow-500'
+                    : 'border-green-500 border-3 focus-visible:ring-green-500'
+                }`}
+              />
             </CardContent>
           </Card>
 
@@ -317,7 +327,7 @@ export default function AgentCardVisualizer() {
                                 <div>
                                   <label className="text-sm font-medium text-slate-700">Tags</label>
                                   <div className="flex flex-wrap gap-2 mt-1">
-                                    {skill.tags.map((tag) => (
+                                    {skill.tags && Array.isArray(skill.tags) && skill.tags.filter(tag => typeof tag === 'string').map((tag: string) => (
                                       <Badge key={tag} variant="secondary" className="text-xs">
                                         {tag}
                                       </Badge>
