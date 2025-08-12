@@ -8,7 +8,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Badge } from '@/components/ui/badge';
 import { AgentCard } from '@/types/agentCard';
 import { validateAgentCard, getValidationSummary, ValidationError } from '@/utils/validation';
-import { AlertCircle, CheckCircle, Copy, Eye, Globe, Shield, Code, Zap, AlertTriangle, Info } from 'lucide-react';
+import { AlertCircle, CheckCircle, Copy, Eye, Globe, Shield, Code, Zap, AlertTriangle, Info, HammerIcon, ArrowRightLeft } from 'lucide-react';
 
 export default function AgentCardVisualizer() {
   const [jsonInput, setJsonInput] = useState('');
@@ -287,77 +287,103 @@ export default function AgentCardVisualizer() {
                   </TabsContent>
 
                   <TabsContent value="skills">
-                    <div className="space-y-4">
-                      {parsedCard.skills.map((skill) => (
-                        <Card key={skill.id}>
-                          <CardHeader>
-                            <div className="flex items-start justify-between">
-                              <div>
-                                <CardTitle className="text-lg">{skill.name}</CardTitle>
-                                <p className="text-slate-600 text-sm mt-1">{skill.description}</p>
-                              </div>
-                              <Badge variant="outline">{skill.id}</Badge>
-                            </div>
-                          </CardHeader>
-                          <CardContent>
-                            <div className="space-y-3">
-                              <div>
-                                <label className="text-sm font-medium text-slate-700">Tags</label>
-                                <div className="flex flex-wrap gap-2 mt-1">
-                                  {skill.tags.map((tag) => (
-                                    <Badge key={tag} variant="secondary" className="text-xs">
-                                      {tag}
-                                    </Badge>
-                                  ))}
-                                </div>
-                              </div>
-                              
-                              {skill.examples && skill.examples.length > 0 && (
+                    {validationErrors.find(e => e.path === 'skills') ? (
+                      <Card>
+                        <CardHeader>
+                          <CardTitle className="flex items-center gap-2">
+                            <HammerIcon className="h-5 w-5" />
+                            Skills
+                          </CardTitle>
+                        </CardHeader>
+                        <CardContent>
+                          <ErrorList errors={validationErrors.filter(e => e.path === 'skills')} />
+                          </CardContent>
+                        </Card>
+                    ) : (
+                      <div className="space-y-4">
+                        {parsedCard.skills.map((skill) => (
+                          <Card key={skill.id}>
+                            <CardHeader>
+                              <div className="flex items-start justify-between">
                                 <div>
-                                  <label className="text-sm font-medium text-slate-700">Examples</label>
-                                  <div className="space-y-2 mt-1">
-                                    {skill.examples.map((example, exIndex) => (
-                                      <div key={exIndex} className="p-2 bg-slate-50 rounded text-sm font-mono">
-                                        &quot;{example}&quot;
-                                      </div>
+                                  <CardTitle className="text-lg">{skill.name}</CardTitle>
+                                  <p className="text-slate-600 text-sm mt-1">{skill.description}</p>
+                                </div>
+                                <Badge variant="outline">{skill.id}</Badge>
+                              </div>
+                            </CardHeader>
+                            <CardContent>
+                              <div className="space-y-3">
+                                <div>
+                                  <label className="text-sm font-medium text-slate-700">Tags</label>
+                                  <div className="flex flex-wrap gap-2 mt-1">
+                                    {skill.tags.map((tag) => (
+                                      <Badge key={tag} variant="secondary" className="text-xs">
+                                        {tag}
+                                      </Badge>
                                     ))}
                                   </div>
                                 </div>
-                              )}
-                            </div>
-                          </CardContent>
-                        </Card>
-                      ))}
-                    </div>
+                                
+                                {skill.examples && skill.examples.length > 0 && (
+                                  <div>
+                                    <label className="text-sm font-medium text-slate-700">Examples</label>
+                                    <div className="space-y-2 mt-1">
+                                      {skill.examples.map((example, exIndex) => (
+                                        <div key={exIndex} className="p-2 bg-slate-50 rounded text-sm font-mono">
+                                          &quot;{example}&quot;
+                                        </div>
+                                      ))}
+                                    </div>
+                                  </div>
+                                )}
+                              </div>
+                            </CardContent>
+                          </Card>
+                        ))}
+                      </div>
+                    )}
                   </TabsContent>
 
                   <TabsContent value="io">
                     <Card>
                       <CardHeader>
-                        <CardTitle>Input/Output Modes</CardTitle>
+                        <CardTitle className="flex items-center gap-2">
+                          <ArrowRightLeft className="h-5 w-5" />
+                          Input/Output Modes
+                        </CardTitle>
                       </CardHeader>
                       <CardContent>
+                        {validationErrors.find(e => e.path === 'defaultInputModes' || e.path === 'defaultOutputModes') && (
+                          <div className="mb-6">
+                            <ErrorList errors={validationErrors.filter(e => e.path === 'defaultInputModes' || e.path === 'defaultOutputModes')} />
+                          </div>
+                        )}
                         <div className="grid md:grid-cols-2 gap-6">
-                          <div>
-                            <label className="text-sm font-medium text-slate-700">Default Input Modes</label>
-                            <div className="space-y-2 mt-2">
-                              {parsedCard.defaultInputModes.map((mode) => (
-                                <div key={mode} className="p-2 bg-green-50 rounded border border-green-200">
-                                  <code className="text-sm text-green-800">{mode}</code>
-                                </div>
-                              ))}
+                          {!validationErrors.find(e => e.path === 'defaultInputModes') && (
+                            <div>
+                              <label className="text-sm font-medium text-slate-700">Default Input Modes</label>
+                              <div className="space-y-2 mt-2">
+                                {parsedCard.defaultInputModes.map((mode) => (
+                                  <div key={mode} className="p-2 bg-green-50 rounded border border-green-200">
+                                    <code className="text-sm text-green-800">{mode}</code>
+                                  </div>
+                                ))}
+                              </div>
                             </div>
-                          </div>
-                          <div>
-                            <label className="text-sm font-medium text-slate-700">Default Output Modes</label>
-                            <div className="space-y-2 mt-2">
-                              {parsedCard.defaultOutputModes.map((mode) => (
-                                <div key={mode} className="p-2 bg-blue-50 rounded border border-blue-200">
-                                  <code className="text-sm text-blue-800">{mode}</code>
-                                </div>
-                              ))}
+                          )}
+                          {!validationErrors.find(e => e.path === 'defaultOutputModes') && (
+                            <div>
+                              <label className="text-sm font-medium text-slate-700">Default Output Modes</label>
+                              <div className="space-y-2 mt-2">
+                                {parsedCard.defaultOutputModes.map((mode) => (
+                                  <div key={mode} className="p-2 bg-blue-50 rounded border border-blue-200">
+                                    <code className="text-sm text-blue-800">{mode}</code>
+                                  </div>
+                                ))}
+                              </div>
                             </div>
-                          </div>
+                          )}
                         </div>
                       </CardContent>
                     </Card>
