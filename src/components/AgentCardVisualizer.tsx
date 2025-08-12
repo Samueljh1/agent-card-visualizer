@@ -95,7 +95,7 @@ export default function AgentCardVisualizer() {
         <div className="text-center mb-8">
           <h1 className="text-4xl font-bold text-slate-900 mb-2">Agent Card Visualizer</h1>
           <p className="text-slate-600 text-lg">
-            Debug and preview A2A Agent Cards with a clean, modern interface
+            Debug and preview A2A Agent Cards
           </p>
         </div>
 
