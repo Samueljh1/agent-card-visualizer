@@ -53,7 +53,7 @@ export interface AgentExtension {
   uri: string;
   description?: string;
   required: boolean;
-  params?: { [key: string]: any };
+  params?: { [key: string]: unknown };
 }
 
 export interface SecurityRequirement {
@@ -64,13 +64,13 @@ export interface SecurityScheme {
   type: 'apiKey' | 'http' | 'oauth2' | 'openIdConnect' | 'mutualTLS';
   description?: string;
   // Additional fields depend on type
-  [key: string]: any;
+  [key: string]: unknown;
 }
 
 export interface AgentCardSignature {
   protected: string;
   signature: string;
-  header?: { [key: string]: any };
+  header?: { [key: string]: unknown };
 }
 
 export const TRANSPORT_PROTOCOLS = ['JSONRPC', 'GRPC', 'HTTP+JSON'] as const;
