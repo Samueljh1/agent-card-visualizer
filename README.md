@@ -1,8 +1,43 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Agent Card Visualizer
+
+A tool for visualizing, debugging, and validating AI agent cards. Built with Next.js and TypeScript, this application helps developers preview and debug agent card configurations.
+
+🌐 **Live Site**: [agent-card.io](https://agent-card.io)
+
+## Features
+
+- Preview your agent cards instantly as you edit
+- Built-in validation for agent card schemas and formats
+- Clear error messages and visual feedback for troubleshooting
+- Full compatibility with Agent-to-Agent protocol specifications
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+- Node.js 18+
+- npm, yarn, pnpm, or bun
+
+### Installation
+
+1. Clone the repository:
+
+```bash
+git clone https://github.com/samueljh1/agent-card-visualizer.git
+cd agent-card-visualizer
+```
+
+2. Install dependencies:
+
+```bash
+npm install
+# or
+yarn install
+# or
+pnpm install
+```
+
+3. Start the development server:
 
 ```bash
 npm run dev
@@ -10,27 +45,54 @@ npm run dev
 yarn dev
 # or
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+4. Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Contributing
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+We welcome contributions from the community! Here's how you can help:
 
-## Learn More
+### Ways to Contribute
 
-To learn more about Next.js, take a look at the following resources:
+- 🐛 Found a bug? [Open an issue](https://github.com/samueljh1/agent-card-visualizer/issues)
+- 🔧 Submit pull requests for bug fixes or new features
+- 📖 Help improve our docs and examples
+- 🧪 Add test cases or report edge cases
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Development Workflow
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1. Fork the repository
+2. Create a feature branch: `git checkout -b feature/amazing-feature`
+3. Make your changes
+4. Run linting: `npm run lint`
+5. Commit your changes: `git commit -m 'Add amazing feature'`
+6. Push to the branch: `git push origin feature/amazing-feature`
+7. Open a Pull Request
 
-## Deploy on Vercel
+### Code Style
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- Use TypeScript for all new code
+- Follow the existing code style and conventions
+- Ensure accessibility best practices
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Tech Stack
+
+- **Framework**: [Next.js 15](https://nextjs.org) with App Router
+- **Language**: [TypeScript](https://typescriptlang.org)
+- **Styling**: [Tailwind CSS](https://tailwindcss.com)
+- **UI Components**: [Radix UI](https://radix-ui.com)
+- **Icons**: [Lucide React](https://lucide.dev)
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Community
+
+- 🌐 **Website**: [agent-card.io](https://agent-card.io)
+- 🐞 **Issues**: [GitHub Issues](https://github.com/samueljh1/agent-card-visualizer/issues)
+
+## Acknowledgments
+
+Built with ❤️ by the open source community. Special thanks to all contributors who help make this tool better for developers working with AI agents.
