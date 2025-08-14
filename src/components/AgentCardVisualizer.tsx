@@ -144,7 +144,9 @@ export default function AgentCardVisualizer() {
                   <>
                     <AlertCircle className="h-5 w-5 text-red-600" />
                     <span className="text-red-600 font-medium">
-                      {!validationSummary ? (
+                      {!jsonInput ? (
+                        <>Please provide an agent card</>
+                      ) : !validationSummary ? (
                         <>Error</>
                       ) : (
                         <>{validationSummary.errors} error{validationSummary.errors > 1 ? 's' : ''}</>
